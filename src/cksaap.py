@@ -3,10 +3,16 @@ import numpy as np
 
 def cksaap(seq: str, k=2) -> np.ndarray:
     """
+    Composition of k-spaced amino acid pair (CKSAAP) encoding implementation
+    CKSAAP depicts the frequencies of all possible 400 amino acid pairs that are
+    separated by k other amino acids within the peptide sequence.
 
-    :param seq:
-    :param k:
-    :return:
+    Arguments
+        seq     Amino acids sequence, provided as string of single letters amino acids
+        k       Integer, number of spaces between the pair of amino acids
+                (Default 2)
+
+    Return a Numpy array of the encoded sequence
     """
     # get all possible permutations of pairs of amino acids
     aminoacids = "ACDEFGHIKLMNPQRSTVWY"
@@ -20,10 +26,10 @@ def cksaap(seq: str, k=2) -> np.ndarray:
 
     for i in range(len(seq)-n):
         # pairs of aa: first position + step 'n'
-        pep = seq[i] + seq[i+n]
+        pair = seq[i] + seq[i+n]
 
-        # count of pairs aa occurrence
-        dict_enc[pep] += 1
+        # count of aa pairs occurrence
+        dict_enc[pair] += 1
 
     # transform dict of count into dict of frequencies
     # count / total number of pairs
@@ -36,4 +42,5 @@ def cksaap(seq: str, k=2) -> np.ndarray:
 
 
 if __name__ == '__main__':
-    print(cksaap("ATAKAFCGAP", k=1))
+    #print(cksaap("ATAKAFCGAP", k=1))
+    help(cksaap)
