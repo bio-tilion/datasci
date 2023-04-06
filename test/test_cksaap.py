@@ -24,10 +24,9 @@ def test_cksaap():
 def test_plot_encoding():
     """
     Test plot_encoding function
-        From a peptide sequence made of a single amino acid, compare the image got with the
-        plot_encoding function with the image got with the expected frequency matrix, by
-        importing the two images as array and comparing them
-    :return:
+        From a peptide sequence made of a single amino acid, compare the image got using the
+        plot_encoding function with the image got using the expected frequency matrix, by
+        importing the two images as arrays and comparing them
     """
 
     aa = "ACDEFGHIKLMNPQRSTVWY"
