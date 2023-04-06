@@ -55,13 +55,18 @@ def plot_encoding(seq_enc: np.ndarray):
     im = ax.imshow(seq_enc.reshape((20, 20)), cmap="cividis")
     #cbar = plt.colorbar(im)
 
+    # Ticks and labels for rows and columns
     ax.tick_params(top=True, bottom=False, labeltop=True, labelbottom=False)
     ax.set_xticks(np.arange(20), labels=list(aa))
     ax.set_yticks(np.arange(20), labels=list(aa))
 
+    # remove box border
     ax.spines[:].set_visible(False)
     plt.title("Amino acids pairs frequency")
+
+    # add legend colorbar
     plt.colorbar(im)
+
     plt.tight_layout()
     return ax
 
