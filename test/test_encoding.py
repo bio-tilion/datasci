@@ -1,5 +1,5 @@
-from src.cksaap import cksaap
-from src.cksaap import plot_encoding
+from src.encoding import cksaap
+from src.encoding import plot_encoding
 import numpy as np
 import matplotlib.pyplot as plt
 import random
