@@ -82,6 +82,43 @@ def get_sublocation(query: str, pages=False) -> requests.models.Response:
     return response
 
 
+def get_query(search_term: str, **parameters) -> str:
+    """
+    Function to produce a query statement for a Uniprot search
+
+    Arguments
+        search_term     String, keyword for the Uniprot search
+        parameters      Dictionary, optional parameters that can be passed for the search.
+                        Each key and value must be a supported Uniprot field (see
+                        https://www.uniprot.org/help/query-fields).
+                        'format' and 'fields' are dealt separately, and the value for
+                        'fields' must be a list of the desired fields.
+
+    Returns a string with the full query
+    """
+    # get list with all terms for the search
+    query = [search_term]
+
+    for k, v in parameters.items():
+        if k == "format":
+            # get format
+            output_format = f"&format={v}"
+        elif k == "fields":
+            # get fields
+            fields = f"&fields={','.join(v)}"
+        else:
+            # get all other terms
+            query.append(f"({k}:{v})")
+
+    # get string concatenated with "AND"
+    query = " AND ".join(query)
+
+    # add format and fields
+    query = query + fields + output_format
+    return query
+
+
 if __name__ == "__main__":
-    help(get_url)
     help(get_uniprot)
+    help(get_sublocation)
+    help(get_query)
