@@ -57,7 +57,7 @@ for sub_loc in compartments:
     # first row as columns header
     df = pd.DataFrame(table[1:], columns=table[0])
     # add column for label encoding
-    df["subcellular_location"] = sub_loc * len(df.index)
+    df["subcellular_location"] = [sub_loc] * len(df.index)
 
     # save dataframe in data folder
     df.to_parquet(f"data/df_{sub_loc.lower().replace(' ', '_')}.parquet")
