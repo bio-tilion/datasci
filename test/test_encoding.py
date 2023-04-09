@@ -10,16 +10,16 @@ def test_cksaap():
         For peptide sequences made from a single amino acid, the encoded sequence is equal to an array
         of zeroes with only the value corresponding to the homo-pair (AA, CC, etc) is equal to 1
     """
-    for i, aa in enumerate("ACDEFGHIKLMNPQRSTVWY"):
+    for i, aa in enumerate("ACDEFGHIKLMNPQRSTUVWY"):
         # random length peptide made with a single amino acid
         seq = aa * 10
 
         # encoding
         seq_enc = cksaap(seq, k=1)
 
-        # encoded array is a raveled 20x20 matrix
+        # encoded array is a raveled 21x21 matrix
         # in this case the diagonal has to be 1
-        assert seq_enc[i + (20 * i)] == 1
+        assert seq_enc[i + (21 * i)] == 1
 
 def test_plot_encoding():
     """
@@ -29,10 +29,10 @@ def test_plot_encoding():
         importing the two images as arrays and comparing them
     """
 
-    aa = "ACDEFGHIKLMNPQRSTVWY"
+    aa = "ACDEFGHIKLMNPQRSTUVWY"
 
     # get a random aa index
-    n = random.randint(0, 19)
+    n = random.randint(0, 20)
 
     # random length peptide made with a single amino acid
     seq = aa[n] * 10
@@ -50,14 +50,14 @@ def test_plot_encoding():
 
     # get expected plot
     # create frequency matrix
-    expected_enc = np.zeros((20, 20))
+    expected_enc = np.zeros((21, 21))
     expected_enc[n][n] = 1
     # same settings as plot_encoding function
     fig, ax = plt.subplots()
     im = ax.imshow(expected_enc, cmap="cividis")
     ax.tick_params(top=True, bottom=False, labeltop=True, labelbottom=False)
-    ax.set_xticks(np.arange(20), labels=list(aa))
-    ax.set_yticks(np.arange(20), labels=list(aa))
+    ax.set_xticks(np.arange(21), labels=list(aa))
+    ax.set_yticks(np.arange(21), labels=list(aa))
     ax.spines[:].set_visible(False)
     plt.title("Amino acids pairs frequency")
     plt.colorbar(im)

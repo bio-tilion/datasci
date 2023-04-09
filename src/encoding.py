@@ -16,7 +16,7 @@ def cksaap(seq: str, k=2) -> np.ndarray:
     Returns a Numpy array of the encoded sequence
     """
     # get all possible permutations of pairs of amino acids
-    aminoacids = "ACDEFGHIKLMNPQRSTVWY"
+    aminoacids = "ACDEFGHIKLMNPQRSTUVWY"
     permutations = [i+j for i in aminoacids for j in aminoacids]
 
     # initialize dictionary for encoding
@@ -50,15 +50,15 @@ def plot_encoding(seq_enc: np.ndarray):
 
     Returns a matplotlib.pyplot figure object
     """
-    aa = "ACDEFGHIKLMNPQRSTVWY"
+    aa = "ACDEFGHIKLMNPQRSTUVWY"
     fig, ax = plt.subplots()
-    im = ax.imshow(seq_enc.reshape((20, 20)), cmap="cividis")
+    im = ax.imshow(seq_enc.reshape((21, 21)), cmap="cividis")
     #cbar = plt.colorbar(im)
 
     # Ticks and labels for rows and columns
     ax.tick_params(top=True, bottom=False, labeltop=True, labelbottom=False)
-    ax.set_xticks(np.arange(20), labels=list(aa))
-    ax.set_yticks(np.arange(20), labels=list(aa))
+    ax.set_xticks(np.arange(21), labels=list(aa))
+    ax.set_yticks(np.arange(21), labels=list(aa))
 
     # remove box border
     ax.spines[:].set_visible(False)
