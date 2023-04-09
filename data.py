@@ -46,7 +46,6 @@ query_terms = {
 
 for sub_loc in compartments:
     query = get_query("*", **query_terms, **{"cc_scl_term": sub_locations[sub_loc]})
-    #print(query)
 
     # Uniprot search
     r = get_uniprot(query)
@@ -60,4 +59,4 @@ for sub_loc in compartments:
     df["subcellular_location"] = [sub_loc] * len(df.index)
 
     # save dataframe in data folder
-    df.to_parquet(f"data/df_{sub_loc.lower().replace(' ', '_')}.parquet")
+    df.to_parquet(f"data/raw/df_{sub_loc.lower().replace(' ', '_')}.parquet")
