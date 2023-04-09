@@ -47,8 +47,7 @@ for df_name in df_names:
     df_encoded["subcell_location_enc"] = encode_label(df["subcellular_location"])
 
     # change index to Uniprot ID
-    df_encoded.set_index(df["uniprot_id"])
+    df_encoded = df_encoded.set_index(df["uniprot_id"])
 
     # save encoded dataframe
-    df_encoded.to_parquet(f"model/{df_name}")
-
+    df_encoded.to_parquet(f"model/{df_name}", index=True)
