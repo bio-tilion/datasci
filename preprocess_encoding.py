@@ -1,5 +1,5 @@
 from src.encoding import cksaap
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OrdinalEncoder
 import pandas as pd
 
 
@@ -17,19 +17,19 @@ def encode_seq(seq_series: pd.Series, ks: list[int]) -> pd.DataFrame:
 
 def encode_label(label_series: pd.Series) -> pd.Series:
     """
-    Function for OneHot encoding a Series of labels
+    Function for Ordinal encoding a Series of labels
     Returns a Series of encoded labels
     """
-    encoder = OneHotEncoder()
+    encoder = OrdinalEncoder()
     label_array = label_series.values.reshape(
         # shape accepted by encoder
         (len(label_series), 1)
     )
     # fit data and get the encoded array
-    label_enc = encoder.fit_transform(label_array).toarray()
+    label_enc = encoder.fit_transform(label_array)#.toarray()
 
     # return a pandas Series
-    return pd.Series(label_enc.tolist())
+    return pd.Series(label_enc.ravel(), dtype="int")
 
 
 # list of k for cksaap encoding
