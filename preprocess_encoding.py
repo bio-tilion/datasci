@@ -49,5 +49,8 @@ for df_name in df_names:
     # change index to Uniprot ID
     df_encoded = df_encoded.set_index(df["uniprot_id"])
 
+    # shuffle row order
+    df_encoded = df_encoded.sample(frac=1)
+
     # save encoded dataframe
     df_encoded.to_parquet(f"model/{df_name}", index=True)
