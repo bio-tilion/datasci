@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import pickle
 from bokeh.plotting import figure, output_file, save
-from bokeh.models import ColumnDataSource, TabPanel, Tabs
+from bokeh.models import ColumnDataSource, DataTable, TableColumn, TabPanel, Tabs, Div
+from bokeh.layouts import gridplot
 
 
 model_name = "model_k2"
@@ -65,13 +66,13 @@ def my_tab(data_kwargs, title, **fig_kwargs):
 
 
 output_file(filename="results/sublocation_test_prediction.html", title="Data Science Coursework")
-source = ColumnDataSource(data=df_out)
-
-#p = figure(title=f"Learning curve for {model_name}", x_axis_label="Iteration (epochs)", y_axis_label="Score")
+source = ColumnDataSource(data=df_out.reset_index())
 
 fig_param = {
     "x_axis_label": "Iteration (epochs)",
     "y_axis_label": "Score",
+    "width": 400,
+    "height": 400,
 }
 
 tab1 = my_tab(
@@ -107,6 +108,26 @@ tab3 = my_tab(
 
 p = Tabs(tabs=[tab1, tab2, tab3])
 
+div1 = Div(
+    text=f"""
+        <h2>Learning curve for {model_name}</h2>
+        """,
+)
 
+div2 = Div(
+    text=f"""
+        <h2>Prediction with test dataframe</h2>
+        """,
+)
 
-save(p)
+columns = [
+    TableColumn(field='uniprot_id', title='uniprot_id'),
+    TableColumn(field='subcell_location_enc', title='subcell_location_enc'),
+    TableColumn(field='predicted_subcell_location_enc', title='predicted_subcell_location_enc')
+]
+
+table = DataTable(source=source, columns=columns)
+
+grid = gridplot([div1, div2, p, table], ncols=2, )
+
+save(grid)
